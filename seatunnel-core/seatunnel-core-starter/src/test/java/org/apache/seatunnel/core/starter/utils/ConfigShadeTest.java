@@ -41,6 +41,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Map;
 
 import static org.apache.seatunnel.core.starter.utils.ConfigBuilder.CONFIG_RENDER_OPTIONS;
 
@@ -261,6 +262,56 @@ public class ConfigShadeTest {
         Assertions.assertEquals("c2VhdHVubmVsX3Bhc3N3b3Jk", encryptPassword);
         Assertions.assertEquals(decryptUsername, USERNAME);
         Assertions.assertEquals(decryptPassword, PASSWORD);
+    }
+
+    @Test
+    public void testDecryptWithProps() throws URISyntaxException {
+        URL resource = ConfigShadeTest.class.getResource("/config.shade_with_props.json");
+        Assertions.assertNotNull(resource);
+        Config deprecatedConfig =
+                ConfigBuilder.of(Paths.get(resource.toURI()), Lists.newArrayList());
+
+        String suffix = "666";
+        String rawUsername = "un";
+        String rawPassword = "pd";
+        Assertions.assertEquals(
+                rawUsername, deprecatedConfig.getConfigList("source").get(0).getString("username"));
+        Assertions.assertEquals(
+                rawPassword, deprecatedConfig.getConfigList("source").get(0).getString("password"));
+
+        Config encryptedConfig = ConfigShadeUtils.encryptConfig(deprecatedConfig);
+        Assertions.assertEquals(
+                rawUsername + suffix,
+                encryptedConfig.getConfigList("source").get(0).getString("username"));
+        Assertions.assertEquals(
+                rawPassword + suffix,
+                encryptedConfig.getConfigList("source").get(0).getString("password"));
+    }
+
+    public static class ConfigShadeWithProps implements ConfigShade {
+
+        private String suffix;
+        private String identifier = "withProps";
+
+        @Override
+        public void open(Map<String, Object> props) {
+            this.suffix = String.valueOf(props.get("suffix"));
+        }
+
+        @Override
+        public String getIdentifier() {
+            return identifier;
+        }
+
+        @Override
+        public String encrypt(String content) {
+            return content + suffix;
+        }
+
+        @Override
+        public String decrypt(String content) {
+            return content.substring(0, content.length() - suffix.length());
+        }
     }
 
     public static class Base64ConfigShade implements ConfigShade {
