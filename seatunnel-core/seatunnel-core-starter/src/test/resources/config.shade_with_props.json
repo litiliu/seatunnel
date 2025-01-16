@@ -2,7 +2,7 @@
   "env" : {
     "shade.identifier" : "withProps",
     "parallelism" : 1,
-    "shade.props" : {
+    "shade.properties" : {
       "suffix" : "666"
     }
   },

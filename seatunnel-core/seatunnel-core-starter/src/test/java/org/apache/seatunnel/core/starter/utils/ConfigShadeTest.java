@@ -268,18 +268,17 @@ public class ConfigShadeTest {
     public void testDecryptWithProps() throws URISyntaxException {
         URL resource = ConfigShadeTest.class.getResource("/config.shade_with_props.json");
         Assertions.assertNotNull(resource);
-        Config deprecatedConfig =
-                ConfigBuilder.of(Paths.get(resource.toURI()), Lists.newArrayList());
+        Config decryptedProps = ConfigBuilder.of(Paths.get(resource.toURI()), Lists.newArrayList());
 
         String suffix = "666";
         String rawUsername = "un";
         String rawPassword = "pd";
         Assertions.assertEquals(
-                rawUsername, deprecatedConfig.getConfigList("source").get(0).getString("username"));
+                rawUsername, decryptedProps.getConfigList("source").get(0).getString("username"));
         Assertions.assertEquals(
-                rawPassword, deprecatedConfig.getConfigList("source").get(0).getString("password"));
+                rawPassword, decryptedProps.getConfigList("source").get(0).getString("password"));
 
-        Config encryptedConfig = ConfigShadeUtils.encryptConfig(deprecatedConfig);
+        Config encryptedConfig = ConfigShadeUtils.encryptConfig(decryptedProps);
         Assertions.assertEquals(
                 rawUsername + suffix,
                 encryptedConfig.getConfigList("source").get(0).getString("username"));

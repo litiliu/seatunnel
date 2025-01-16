@@ -181,12 +181,13 @@ If you want to customize the encryption method and the configuration of the encr
 ### How to encrypt and decrypt with customized params
 
 If you want to encrypt and decrypt with customized params, you can follow the steps below:
-1. Add a configuration named `shade.props` in the env part of the configuration file, the value of this configuration is in the form of key-value pairs (the type of the key must be a string), as shown below:
+1. Add a configuration named `shade.properties` in the env part of the configuration file, the value of this configuration is in the form of key-value pairs (the type of the key must be a string), as shown below:
 
-   ```txt
-    "env" : {
-    "shade.props" : {
-      "suffix" : "666"
+   ```hocon
+    env {
+        shade.properties = {
+           suffix = "666"
+        }
     }
 
    ```

@@ -46,7 +46,7 @@ import java.util.function.BiFunction;
 public final class ConfigShadeUtils {
 
     private static final String SHADE_IDENTIFIER_OPTION = "shade.identifier";
-    private static final String SHADE_PROPS_OPTION = "shade.props";
+    private static final String SHADE_PROPS_OPTION = "shade.properties";
 
     public static final String[] DEFAULT_SENSITIVE_KEYWORDS =
             new String[] {"password", "username", "auth", "token"};
