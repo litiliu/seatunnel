@@ -199,6 +199,8 @@ public class SeaTunnelRowDebeziumDeserializationConverters implements Serializab
                         convertListToArray((List<Integer>) dbzObj, Integer.class);
             case BIGINT:
                 return (dbzObj, schema) -> convertListToArray((List<Long>) dbzObj, Long.class);
+            case FLOAT:
+                return (dbzObj, schema) -> convertListToArray((List<Float>) dbzObj, Float.class);
             case DOUBLE:
                 return (dbzObj, schema) -> convertListToArray((List<Double>) dbzObj, Double.class);
             case STRING:
