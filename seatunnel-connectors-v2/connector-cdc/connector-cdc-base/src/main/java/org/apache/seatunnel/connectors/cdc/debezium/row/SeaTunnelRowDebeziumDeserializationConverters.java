@@ -32,7 +32,7 @@ import org.apache.kafka.connect.data.Schema;
 import org.apache.kafka.connect.data.Struct;
 import org.apache.kafka.connect.source.SourceRecord;
 
-import com.google.common.annotations.VisibleForTesting;
+import org.apache.seatunnel.shade.com.google.common.annotations.VisibleForTesting;
 import io.debezium.data.SpecialValueDecimal;
 import io.debezium.data.VariableScaleDecimal;
 import io.debezium.time.MicroTime;
@@ -208,8 +208,8 @@ public class SeaTunnelRowDebeziumDeserializationConverters implements Serializab
         }
     }
 
+    @SuppressWarnings("unchecked")
     private static <T> T[] convertListToArray(List<T> list, Class<T> clazz) {
-        @SuppressWarnings("unchecked")
         T[] array = (T[]) java.lang.reflect.Array.newInstance(clazz, list.size());
         for (int i = 0; i < list.size(); i++) {
             array[i] = list.get(i);
