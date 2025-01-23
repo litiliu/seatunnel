@@ -78,10 +78,9 @@ mysql> show variables where variable_name in ('log_bin', 'binlog_format', 'binlo
 | gtid_mode                | ON             |
 | log_bin                  | ON             |
 +--------------------------+----------------+
-5 rows in set (0.00 sec)
 ```
 
-2. If inconsistent with the above results, configure your MySQL server configuration file(`$MYSQL_HOME/mysql.cnf`) with the following properties, which are described in the table below:
+2. If the value of `log_bin` is not `on`, configure your MySQL server configuration file(`$MYSQL_HOME/mysql.cnf`) with the following properties, which are described in the table below:
 
 ```
 # Enable binary replication log and set the prefix, expiration, and log format.
@@ -95,8 +94,8 @@ binlog_format     = row
 # mysql 5.6+ requires binlog_row_image to be set to FULL
 binlog_row_image  = FULL
 
-# enable gtid mode
-# mysql 5.6+ requires gtid_mode to be set to ON
+# optional enable gtid mode
+# mysql 5.6+ requires gtid_mode to be set to ON, but not required by mysql 8.0+
 gtid_mode = on
 enforce_gtid_consistency = on
 ```
@@ -119,7 +118,6 @@ mysql> show variables where variable_name in ('log_bin', 'binlog_format', 'binlo
 | binlog_format            | ROW            |
 | log_bin                  | ON             |
 +--------------------------+----------------+
-5 rows in set (0.00 sec)
 ```
 
 MySQL 5.6+:
@@ -135,8 +133,22 @@ mysql> show variables where variable_name in ('log_bin', 'binlog_format', 'binlo
 | gtid_mode                | ON             |
 | log_bin                  | ON             |
 +--------------------------+----------------+
-5 rows in set (0.00 sec)
 ```
+MySQL 8.0+:
+```sql
+show variables where variable_name in ('log_bin', 'binlog_format', 'binlog_row_image', 'gtid_mode', 'enforce_gtid_consistency')
++--------------------------+----------------+
+| Variable_name            | Value          |
++--------------------------+----------------+
+| binlog_format            | ROW            |
+| binlog_row_image         | FULL           |
+| enforce_gtid_consistency | OFF            |
+| gtid_mode                | OFF            |
+| log_bin                  | ON             |
++--------------------------+----------------+  
+     
+```
+
 
 ### Notes
 
