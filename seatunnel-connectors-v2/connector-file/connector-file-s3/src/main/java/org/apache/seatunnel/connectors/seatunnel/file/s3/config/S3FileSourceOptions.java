@@ -18,5 +18,4 @@
 package org.apache.seatunnel.connectors.seatunnel.file.s3.config;
 
 public class S3FileSourceOptions extends S3ConfigOptions {
-    // options related to S3 File read should be defined here
 }
