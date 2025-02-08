@@ -24,7 +24,6 @@ import org.apache.seatunnel.connectors.seatunnel.file.config.BaseSourceConfigOpt
 import java.util.Map;
 
 public class S3ConfigOptions extends BaseSourceConfigOptions {
-    //  common options shared by s3 read/write
     public static final Option<String> S3_ACCESS_KEY =
             Options.key("access_key")
                     .stringType()
