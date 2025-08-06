@@ -70,6 +70,10 @@ jetty-server-9.4.56.v20240826.jar
 jetty-servlet-9.4.56.v20240826.jar
 jetty-util-9.4.20.v20190813.jar
 jetty-util-9.4.56.v20240826.jar
+jetty-util-9.4.53.v20231009.jar
+bundle-2.31.30.jar
+netty-buffer-4.1.100.Final.jar
+netty-common-4.1.100.Final.jar
 jetty-util-ajax-9.4.56.v20240826.jar
 javax.servlet-api-3.1.0.jar
 seatunnel-jetty9-9.4.56-2.3.12-SNAPSHOT-optional.jar
@@ -94,9 +98,9 @@ reactive-streams-1.0.4.jar
 regions-2.31.30.jar
 retries-2.31.30.jar
 retries-spi-2.31.30.jar
-auth-2.31.30.jar
 annotations-2.31.30.jar
 apache-client-2.31.30.jar
+auth-2.31.30.jar
 aws-core-2.31.30.jar
 aws-json-protocol-2.31.30.jar
 bedrockruntime-2.31.30.jar

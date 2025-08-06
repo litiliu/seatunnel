@@ -48,7 +48,7 @@ Output data to aws s3 file system.
 > If you use spark/flink, In order to use this connector, You must ensure your spark/flink cluster already integrated hadoop. The tested hadoop version is 2.x.
 >
 > If you use SeaTunnel Engine, It automatically integrated the hadoop jar when you download and install SeaTunnel Engine. You can check the jar package under `${SEATUNNEL_HOME}/lib` to confirm this.
-> To use this connector you need put `hadoop-aws-3.1.4.jar` and `aws-java-sdk-bundle-1.12.692.jar` in `${SEATUNNEL_HOME}/lib` dir.
+> To use this connector, place the seatunnel-hadoop-aws.jar (which includes the bundled bundle.jar with AWS SDK v2) in the ${SEATUNNEL_HOME}/lib directory.
 
 ## Data Type Mapping
 
@@ -106,7 +106,7 @@ If write to `csv`, `text` file type, All column will be string.
 | tmp_path                              | string  | no       | /tmp/seatunnel                                        | The result file will write to a tmp path first and then use `mv` to submit tmp dir to target dir. Need a S3 dir.                                                       |
 | bucket                                | string  | yes      | -                                                     |                                                                                                                                                                        |
 | fs.s3a.endpoint                       | string  | yes      | -                                                     |                                                                                                                                                                        |
-| fs.s3a.aws.credentials.provider       | string  | yes      | com.amazonaws.auth.InstanceProfileCredentialsProvider | The way to authenticate s3a. We only support `org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider` and `com.amazonaws.auth.InstanceProfileCredentialsProvider` now.  |
+| fs.s3a.aws.credentials.provider       | string  | yes      | software.amazon.awssdk.auth.credentials.InstanceProfileCredentialsProvider | The way to authenticate s3a. We only support `org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider` and `software.amazon.awssdk.auth.credentials.InstanceProfileCredentialsProvider` now.  |
 | access_key                            | string  | no       | -                                                     | Only used when fs.s3a.aws.credentials.provider = org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider                                                                 |
 | secret_key                            | string  | no       | -                                                     | Only used when fs.s3a.aws.credentials.provider = org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider                                                                 |
 | custom_filename                       | boolean | no       | false                                                 | Whether you need custom the filename                                                                                                                                   |
@@ -372,7 +372,7 @@ sink {
       tmp_path = "/tmp/seatunnel"
       path="/seatunnel/text"
       fs.s3a.endpoint="s3.cn-north-1.amazonaws.com.cn"
-      fs.s3a.aws.credentials.provider="com.amazonaws.auth.InstanceProfileCredentialsProvider"
+      fs.s3a.aws.credentials.provider="software.amazon.awssdk.auth.credentials.InstanceProfileCredentialsProvider"
       file_format_type = "text"
       field_delimiter = "\t"
       row_delimiter = "\n"
@@ -396,7 +396,7 @@ sink {
 ```
 
 For text file format with `have_partition` and `custom_filename` and `sink_columns`
-and `com.amazonaws.auth.InstanceProfileCredentialsProvider`
+and `software.amazon.awssdk.auth.credentials.InstanceProfileCredentialsProvider`
 
 ```hocon
 
@@ -405,7 +405,7 @@ and `com.amazonaws.auth.InstanceProfileCredentialsProvider`
     tmp_path = "/tmp/seatunnel"
     path="/seatunnel/text"
     fs.s3a.endpoint="s3.cn-north-1.amazonaws.com.cn"
-    fs.s3a.aws.credentials.provider="com.amazonaws.auth.InstanceProfileCredentialsProvider"
+    fs.s3a.aws.credentials.provider="software.amazon.awssdk.auth.credentials.InstanceProfileCredentialsProvider"
     file_format_type = "text"
     field_delimiter = "\t"
     row_delimiter = "\n"

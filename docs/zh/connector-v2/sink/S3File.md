@@ -47,10 +47,10 @@ import ChangeLog from '../changelog/connector-file-s3.md';
 
 ## 数据库依赖
 
-> 如果您使用 Spark/Flink，为了使用此连接器，您必须确保您的 Spark/Flink 集群已经集成了 Hadoop。测试的 Hadoop 版本为 2.x。
+> 如果您使用 Spark/Flink，为了使用此连接器，您必须确保您的 Spark/Flink 集群已经集成了 Hadoop。测试的 Hadoop 版本为 3.4。
 >
 > 如果您使用 SeaTunnel引擎，当您下载并安装 SeaTunnel引擎时，它会自动集成 Hadoop jar 包。您可以在 `${SEATUNNEL_HOME}/lib` 下检查 jar 包以确认这一点。
-> 要使用此连接器，您需要将 `hadoop-aws-3.1.4.jar` 和 `aws-java-sdk-bundle-1.12.692.jar` 放在 `${SEATUNNEL_HOME}/lib` 目录下。
+> 要使用此连接器，您需要将 `seatunnel-hadoop-aws.jar`, 放在 `${SEATUNNEL_HOME}/lib` 目录下。该jar 已经内置了bundle.jar(aws sdk v2).
 
 ## 数据类型映射
 
@@ -108,7 +108,7 @@ import ChangeLog from '../changelog/connector-file-s3.md';
 | tmp_path                              | string  | 否       | /tmp/seatunnel                                        | 结果文件将首先写入临时路径，然后使用 `mv` 将临时目录提交到目标目录。需要一个 S3 目录。                                                                           |
 | bucket                                | string  | 是       | -                                                     |                                                                                                                                                                |
 | fs.s3a.endpoint                       | string  | 是       | -                                                     |                                                                                                                                                                |
-| fs.s3a.aws.credentials.provider       | string  | 是       | com.amazonaws.auth.InstanceProfileCredentialsProvider | 认证 s3a 的方式。目前仅支持 `org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider` 和 `com.amazonaws.auth.InstanceProfileCredentialsProvider`。                  |
+| fs.s3a.aws.credentials.provider       | string  | 是       | software.amazon.awssdk.auth.credentials.InstanceProfileCredentialsProvider | 认证 s3a 的方式。目前仅支持 `org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider` 和 `software.amazon.awssdk.auth.credentials.InstanceProfileCredentialsProvider`。                  |
 | access_key                            | string  | 否       | -                                                     | 仅当 fs.s3a.aws.credentials.provider = org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider 时使用                                                             |
 | access_secret                         | string  | 否       | -                                                     | 仅当 fs.s3a.aws.credentials.provider = org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider 时使用                                                             |
 | custom_filename                       | boolean | 否       | false                                                 | 是否需要自定义文件名                                                                                                                                           |
@@ -374,7 +374,7 @@ sink {
       tmp_path = "/tmp/seatunnel"
       path="/seatunnel/text"
       fs.s3a.endpoint="s3.cn-north-1.amazonaws.com.cn"
-      fs.s3a.aws.credentials.provider="com.amazonaws.auth.InstanceProfileCredentialsProvider"
+      fs.s3a.aws.credentials.provider="software.amazon.awssdk.auth.credentials.InstanceProfileCredentialsProvider"
       file_format_type = "text"
       field_delimiter = "\t"
       row_delimiter = "\n"
@@ -397,7 +397,7 @@ sink {
 }
 ```
 
-对于文本文件格式，包含 `have_partition`、`custom_filename`、`sink_columns` 和 `com.amazonaws.auth.InstanceProfileCredentialsProvider`
+对于文本文件格式，包含 `have_partition`、`custom_filename`、`sink_columns` 和 `software.amazon.awssdk.auth.credentials.InstanceProfileCredentialsProvider`
 
 ```hocon
 S3File {
@@ -405,7 +405,7 @@ S3File {
   tmp_path = "/tmp/seatunnel"
   path="/seatunnel/text"
   fs.s3a.endpoint="s3.cn-north-1.amazonaws.com.cn"
-  fs.s3a.aws.credentials.provider="com.amazonaws.auth.InstanceProfileCredentialsProvider"
+  fs.s3a.aws.credentials.provider="software.amazon.awssdk.auth.credentials.InstanceProfileCredentialsProvider"
   file_format_type = "text"
   field_delimiter = "\t"
   row_delimiter = "\n"
