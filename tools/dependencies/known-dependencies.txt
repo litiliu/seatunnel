@@ -127,7 +127,13 @@ netty-common-4.1.118.Final.jar
 netty-handler-4.1.118.Final.jar
 netty-resolver-4.1.118.Final.jar
 okhttp-2.7.5.jar
-okio-1.6.0.jar
+annotations-13.0.jar
+kotlin-stdlib-1.8.0.jar
+kotlin-stdlib-common-1.8.0.jar
+kotlin-stdlib-jdk7-1.8.0.jar
+kotlin-stdlib-jdk8-1.8.0.jar
+okio-3.4.0.jar
+okio-jvm-3.4.0.jar
 eventstream-1.0.1.jar
 java-diff-utils-4.12.jar
 jline-3.22.0.jar
